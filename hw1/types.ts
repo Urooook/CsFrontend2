@@ -8,5 +8,4 @@ export interface IBitGetter {
 export interface ICheckParams {
     elem: number;
     bit: number;
-    size: number;
 }

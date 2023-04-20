@@ -10,7 +10,7 @@ export class BitGetter implements IBitGetter {
     }
 
     get(elem: number, bit: number): number | null {
-        if (this.checkInputData({ elem, bit, size: this.elemSize })) {
+        if (this.checkInputData({ elem, bit })) {
             return Number((this.buffer[elem] & (1 << bit)) !== 0);
         }
         return null;
@@ -18,7 +18,7 @@ export class BitGetter implements IBitGetter {
 
     set(elem: number, bit: number, value: UintArrayBit): void {
         if (
-            !this.checkInputData({ elem, bit, size: this.elemSize }) &&
+            !this.checkInputData({ elem, bit }) &&
             !this.checkSetBitData(value)
         )
             return null;
@@ -31,8 +31,8 @@ export class BitGetter implements IBitGetter {
     }
 
 
-    checkInputData({ elem, bit, size }: ICheckParams): boolean {
-        const isValidElem = elem <= size && elem >= 0;
+    checkInputData({ elem, bit }: ICheckParams): boolean {
+        const isValidElem = elem <= this.elemSize && elem >= 0;
         const isValidBit = bit >= 0 && bit < 8;
 
         if (!isValidElem) console.error("Wrong array index");

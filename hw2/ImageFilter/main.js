@@ -1,5 +1,5 @@
 const img = new Image();
-img.src = 'cat.jpg';
+img.src = 'cat2.jpg';
 img.crossOrigin = "Anonymous";
 img.onload = function() {
     draw(this);

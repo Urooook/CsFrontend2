@@ -28,7 +28,7 @@ export function getBitPosition(position: number) {
     return position % BITS_PER_ELEMENT;
 }
 
-export function isNumberSchema(schema: [number, TDataTypes]): schema is [number, 'number'] {
+export function isNumberSchema(schema: any): schema is [number, 'number'] {
     return schema[1] === 'number';
 }
 
@@ -46,7 +46,7 @@ export function isASCIISchema(schema: [number, TDataTypes]): schema is [number, 
  * @param schema Схема кодирования
  * @returns Полное количество использованных бит
  */
-export function countTotalBits(schema: TSchema) {
+export function countTotalBits(schema: any) {
     return schema.reduce((acc, item) => acc + item[0], 0);
 }
 
@@ -55,3 +55,41 @@ export const allowNumber = (value: number, limit: number) => {
         throw new Error(`${value} bigger then limit: ${limit}`)
     }
 }
+
+export const take = <T>(
+    iterableObj: Iterable<T> | IterableIterator<T>,
+    count: number,
+): IterableIterator<T> => {
+
+    const iterator = iterableObj[Symbol.iterator]();
+
+    return {
+        [Symbol.iterator]() {
+            return this;
+        },
+
+        next() {
+            count -= 1;
+
+            return {
+                value: iterator.next().value,
+                done: count < 0,
+            };
+        },
+    };
+}
+
+export function* teke(
+    iterableObj,
+    count
+) {
+    const iterator = iterableObj[Symbol.iterator]();
+    const {done, value} = iterator.next();
+
+    if(done || count < 0) return;
+    count -= 1;
+    yield value;
+}
+
+// console.log(123)
+// console.log(...teke([1,2,3,4,5], 3))

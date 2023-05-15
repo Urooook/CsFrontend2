@@ -42,12 +42,12 @@ class Matrix3D {
     }
 }
 
-const m = new Matrix3D({x:2, y:2, z: 2});
+// const m = new Matrix3D({x:2, y:2, z: 2});
 //
-m.set({x:0,y:0,z:0}, 1);
-m.set({x:1,y:0,z:0}, 2);
+// m.set({x:0,y:0,z:0}, 1);
+// m.set({x:1,y:0,z:0}, 2);
 //
 // m.set({x:0,y:1,z:0}, 3);
 // m.set({x:1,y:0,z:1}, 4);
 //
-console.log(...m)
+// console.log(...m)

@@ -1,5 +1,5 @@
 import {Vertex} from "./Vertex";
-import {Matrix2D} from "../../hw6/Matrix2D";
+import {Matrix2D} from "./Matrix2D";
 
 export class Graph {
     #MAX_VERTS: number = 20;
@@ -24,9 +24,9 @@ export class Graph {
         this.#vertexList[this.#nVerts++] = new Vertex(lab);
     }
 
-    addEge(start: number,  end: number) {
-        this.#matrix.set({x:start, y: end}, 1);
-        this.#matrix.set({x:end, y: start}, 1);
+    addEge(start: number,  end: number, val: number = 1) {
+        this.#matrix.set({x:start, y: end}, val);
+        this.#matrix.set({x:end, y: start}, val);
     }
 
     displayVertex(v: number) {

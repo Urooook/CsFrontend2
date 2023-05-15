@@ -1,4 +1,4 @@
-import {BitVector} from "./BitVector";
+import {BitVector} from "../../hw6/BitVector";
 
 export class Matrix2D {
     #buffer;
@@ -9,7 +9,7 @@ export class Matrix2D {
         this.#xSize = x;
         this.#ySize = y;
 
-        this.#buffer = new BitVector(x * y);
+        this.#buffer = new Array(x * y);
     }
 
     get buffer() {

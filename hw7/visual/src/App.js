@@ -6,12 +6,17 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
 
-  const graph = new Graph(10);
+  const graph = new Graph(5);
   // console.log(...graph.matrix)
-  //   graph.addEge(0,0)
+  //   console.log(graph.defaultValues)
+    graph.addEge(0,1)
+    graph.addEge(0,3)
+    graph.addEge(4,3)
+    graph.addEge(1,4)
+
   return (
-    <div className="App" style={{ width: 700, height: 400 }}>
-      <TableMatrix matrix={graph.matrix} size={graph.MatrixLineSize} change={(x, y, v) => graph.addEge(x, y, v)}/>
+    <div className="App">
+      <TableMatrix matrix={graph.matrix} size={graph.MatrixLineSize} change={(x, y, v) => graph.addEge(x, y, v)} defaultValues={graph.defaultValues}/>
     </div>
   );
 }

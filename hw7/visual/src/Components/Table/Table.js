@@ -2,7 +2,7 @@ import React, {useRef, useState} from 'react';
 import {Form, InputGroup, Table} from "react-bootstrap";
 import {Insert} from "../Buttons/Insert";
 
-const TableMatrix = React.memo(({ matrix, size, change }) => {
+const TableMatrix = React.memo(({ matrix, size, change, defaultValues }) => {
     const [isActive, setActive] = useState({
         x: null,
         y: null
@@ -45,49 +45,57 @@ const TableMatrix = React.memo(({ matrix, size, change }) => {
                 results.push(value);
             }
         }
-        console.log(results)
         return results
     }
 
     return (
-        <div>
+        <div style={{ maxWidth: 60 * (size + 1)}}>
             <Table responsive striped="columns">
-                {/*<thead>*/}
-                {/*<tr>*/}
-                {/*    <th>#</th>*/}
-                {/*    <th>First Name</th>*/}
-                {/*    <th>Last Name</th>*/}
-                {/*    <th>Username</th>*/}
-                {/*</tr>*/}
-                {/*</thead>*/}
+                <thead>
+                <tr>
+                    <th>#</th>
+                    {
+                        [...defaultValues].map(([i, el]) => (<th>{el}</th>))
+                    }
+                </tr>
+                </thead>
                 <tbody>
                 {
-                    getMatrixData().map((data) => {
+                    getMatrixData().map((data, i) => {
                         return (
-                            <tr>{
+                            <tr>
+                                <th  style={{ width: 60, height: 50, textAlign: 'center' }} >{defaultValues.get(i)}</th>
+                                {
                                 data.map(([{x, y}, val]) => (
-                                    <td onDoubleClick={() => {
+                                    <td
+                                        key={val*x*y + x}
+                                        style={{ width: 60, height: 50, textAlign: 'center' }}
+                                        onDoubleClick={() => {
                                         setActive({x, y});
                                         setCurVal(val);
                                         ref?.current?.focus();
                                     }}>{
                                         (isActive.x === x && isActive.y === y)
                                         ? (
-                                                    <Form.Control
-                                                        ref={ref}
-                                                        aria-label="y"
-                                                        aria-describedby="inputGroup-sizing-sm"
-                                                        value={curVal}
-                                                        onChange={(e) => {
-                                                            if((Number(e.target.value) === 0 || Number(e.target.value) === 1)) {
-                                                                setCurVal(Number(e.target.value))
-                                                            }
-                                                        }}
-                                                        onKeyDown={handler}
-                                                        style={{ maxWidth: 40, margin: 'auto', }}
-                                                    />
+
+                                                        <Form.Control
+                                                            size='sm'
+                                                            // as='input'
+                                                            // ref={ref}
+                                                            // aria-label="y"
+                                                            aria-describedby="inputGroup-sizing-sm"
+                                                            // value={curVal}
+                                                            onChange={(e) => {
+                                                                if((Number(e.target.value) === 0 || Number(e.target.value) === 1)) {
+                                                                    setCurVal(Number(e.target.value))
+                                                                }
+                                                            }}
+                                                            onKeyDown={handler}
+                                                            style={{ maxWidth: 60, margin: "auto", padding: 0, textAlign: 'center' }}
+                                                        />
+
                                             )
-                                            : val
+                                            : <div>{val}</div>
                                     }</td>
                                 ))
                             }</tr>

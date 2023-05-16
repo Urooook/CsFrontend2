@@ -6,6 +6,7 @@ export class Graph {
     #vertexList: Vertex[];
     #matrix: Matrix2D;
     #nVerts: number;
+    #defaultValues = new Map();
 
     constructor(size = 20) {
         this.#MAX_VERTS = size;
@@ -17,6 +18,10 @@ export class Graph {
             for(let y = 0; y < this.#MAX_VERTS; y++) {
                 this.#matrix.set({x, y}, 0);
             }
+        }
+
+        for(let i = 0; i <  this.#MAX_VERTS; i++) {
+            this.#defaultValues.set(i, String.fromCharCode(i + 97).toUpperCase())
         }
     }
 
@@ -40,14 +45,8 @@ export class Graph {
     get MatrixLineSize() {
         return this.#MAX_VERTS
     }
-};
 
-// const graph = new Graph();
-// // g.addVertex('A')
-// // g.addVertex('B')
-// // g.addVertex('V')
-// // g.displayVertex(1)
-//
-// module.exports({
-//     graph
-// })
+    get defaultValues() {
+        return this.#defaultValues;
+    }
+}
